@@ -133,7 +133,7 @@ S.UI = (function () {
               rotateOnce();
             }else{
               //container.className += ' leftdown'; //不知道为啥这个动画效果不对, 总是往右下角跑
-              fireText.style.opacity = 1;
+              fireText.style.display = 'block';
             }
           }
           rotateSelfCall();
