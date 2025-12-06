@@ -36,21 +36,22 @@ const ProjectGrid = ({ username }) => {
     }
 
     return (
-        <section className="container section">
+        <section id="projects" className="container section">
             <h2 style={{
                 fontSize: '2rem',
                 marginBottom: 'var(--spacing-lg)',
-                fontWeight: '700'
+                fontWeight: '700',
+                color: 'var(--text-primary)'
             }}>
-                Open Source
+                <span className="text-gradient">Open Source</span>
             </h2>
             <div style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
                 gap: 'var(--spacing-md)'
             }}>
-                {projects.map(project => (
-                    <ProjectCard key={project.id} project={project} />
+                {projects.map((project, index) => (
+                    <ProjectCard key={project.id} project={project} index={index} />
                 ))}
             </div>
         </section>

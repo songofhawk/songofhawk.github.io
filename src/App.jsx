@@ -12,14 +12,17 @@ function App() {
     <main>
       <Hero />
       <FeaturedApps />
-      <BlogSection />
       <ProjectGrid username={GITHUB_USERNAME} />
+      <BlogSection />
 
       <footer className="container section" style={{
         textAlign: 'center',
-        color: 'var(--text-secondary)',
+        opacity: 0.6,
         fontSize: '0.875rem',
-        marginTop: 'auto'
+        marginTop: 'auto',
+        borderTop: '1px solid var(--glass-border)',
+        paddingTop: '2rem',
+        paddingBottom: '2rem'
       }}>
         <p>&copy; {new Date().getFullYear()} Vibe Coding. Built with React & Vite.</p>
       </footer>

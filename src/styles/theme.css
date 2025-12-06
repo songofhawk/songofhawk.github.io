@@ -1,0 +1,52 @@
+:root {
+    /* Dark Theme Palette */
+    --bg-primary: #0f172a;
+    /* Slate 900 */
+    --bg-secondary: #1e293b;
+    /* Slate 800 */
+    --bg-tertiary: #334155;
+    /* Slate 700 */
+
+    /* Text Colors */
+    --text-primary: #f8fafc;
+    /* Slate 50 */
+    --text-secondary: #94a3b8;
+    /* Slate 400 */
+    --text-muted: #64748b;
+    /* Slate 500 */
+
+    /* Brand Colors */
+    --primary: #38bdf8;
+    /* Sky 400 */
+    --primary-glow: rgba(56, 189, 248, 0.5);
+    --secondary: #818cf8;
+    /* Indigo 400 */
+    --accent: #c084fc;
+    /* Purple 400 */
+
+    /* Gradients */
+    --gradient-main: linear-gradient(135deg, var(--primary), var(--secondary));
+    --gradient-glow: radial-gradient(circle at center, rgba(56, 189, 248, 0.15), transparent 70%);
+    --gradient-dark: linear-gradient(to bottom, var(--bg-primary), #020617);
+
+    /* Glassmorphism */
+    --glass-bg: rgba(30, 41, 59, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+    /* Typography */
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-display: 'Outfit', var(--font-sans);
+    /* Fallback to sans for now if Outfit isn't loaded */
+
+    /* Spacing & Layout */
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-full: 9999px;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}

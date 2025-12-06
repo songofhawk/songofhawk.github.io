@@ -7,19 +7,19 @@ const FeaturedApps = () => {
             description: '纯浏览器端的图片编辑器，支持AI分割、背景移除、裁剪、调整大小等',
             url: 'https://songofhawk.github.io/snaplab',
             status: 'live', // 'live' or 'coming-soon'
-            icon: ''
+            icon: '🎨'
         }
     ];
 
     return (
-        <section className="container section" style={{ paddingTop: 0 }}>
+        <section className="container section">
             <h2 style={{
-                fontSize: '1.25rem',
-                fontWeight: '600',
-                marginBottom: 'var(--spacing-md)',
+                fontSize: '2rem',
+                marginBottom: 'var(--spacing-lg)',
+                fontWeight: '700',
                 color: 'var(--text-primary)'
             }}>
-                应用
+                <span className="text-gradient">Featured Apps</span>
             </h2>
             <div style={{
                 display: 'grid',
@@ -32,56 +32,26 @@ const FeaturedApps = () => {
                         href={app.status === 'live' ? app.url : '#'}
                         target={app.status === 'live' ? '_blank' : '_self'}
                         rel="noopener noreferrer"
+                        className="card glass-panel"
                         style={{
-                            display: 'block',
-                            background: 'var(--bg-card)',
-                            border: '2px solid var(--border-color)',
-                            borderRadius: '12px',
-                            padding: 'var(--spacing-md)',
-                            transition: 'var(--transition-smooth)',
                             textDecoration: 'none',
                             cursor: app.status === 'live' ? 'pointer' : 'default',
-                            opacity: app.status === 'live' ? 1 : 0.6
-                        }}
-                        onMouseEnter={(e) => {
-                            if (app.status === 'live') {
-                                e.currentTarget.style.transform = 'translateY(-4px)';
-                                e.currentTarget.style.borderColor = 'var(--text-accent)';
-                                e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.1)';
-                            }
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = 'translateY(0)';
-                            e.currentTarget.style.borderColor = 'var(--border-color)';
-                            e.currentTarget.style.boxShadow = 'none';
+                            opacity: app.status === 'live' ? 1 : 0.6,
+                            animation: `fade-in-up 0.5s ease-out ${index * 0.1}s backwards`
                         }}
                     >
                         <div style={{ fontSize: '2rem', marginBottom: 'var(--spacing-sm)' }}>
                             {app.icon}
                         </div>
-                        <h3 style={{
-                            fontSize: '1.125rem',
-                            fontWeight: '600',
-                            color: 'var(--text-primary)',
-                            marginBottom: 'var(--spacing-xs)'
-                        }}>
+                        <h3 className="card-title">
                             {app.name}
                             {app.status === 'coming-soon' && (
-                                <span style={{
-                                    fontSize: '0.75rem',
-                                    marginLeft: 'var(--spacing-sm)',
-                                    color: 'var(--text-secondary)',
-                                    fontWeight: '400'
-                                }}>
-                                    (即将推出)
+                                <span className="badge" style={{ marginLeft: '0.5rem' }}>
+                                    Coming Soon
                                 </span>
                             )}
                         </h3>
-                        <p style={{
-                            color: 'var(--text-secondary)',
-                            fontSize: '0.95rem',
-                            lineHeight: '1.5'
-                        }}>
+                        <p className="card-desc">
                             {app.description}
                         </p>
                     </a>

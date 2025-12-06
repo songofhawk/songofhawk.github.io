@@ -1,38 +1,19 @@
 import React from 'react';
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project, index }) => {
     return (
         <a
             href={project.html_url}
             target="_blank"
             rel="noopener noreferrer"
+            className="card"
             style={{
-                display: 'block',
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-color)',
-                borderRadius: '12px',
-                padding: 'var(--spacing-md)',
-                transition: 'var(--transition-smooth)',
-                height: '100%',
-                textDecoration: 'none'
-            }}
-            onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.borderColor = 'var(--border-hover)';
-                e.currentTarget.style.boxShadow = '0 10px 30px -10px var(--glow-primary)';
-            }}
-            onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = 'var(--border-color)';
-                e.currentTarget.style.boxShadow = 'none';
+                textDecoration: 'none',
+                animation: `fade-in-up 0.5s ease-out ${index * 0.1}s backwards`
             }}
         >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 'var(--spacing-sm)' }}>
-                <h3 style={{
-                    fontSize: '1.25rem',
-                    fontWeight: '600',
-                    color: 'var(--text-primary)'
-                }}>
+                <h3 className="card-title">
                     {project.name}
                 </h3>
                 <span style={{
@@ -46,27 +27,13 @@ const ProjectCard = ({ project }) => {
                 </span>
             </div>
 
-            <p style={{
-                color: 'var(--text-secondary)',
-                fontSize: '0.95rem',
-                marginBottom: 'var(--spacing-md)',
-                display: '-webkit-box',
-                WebkitLineClamp: '3',
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden'
-            }}>
+            <p className="card-desc">
                 {project.description || 'No description available.'}
             </p>
 
-            <div style={{ display: 'flex', gap: 'var(--spacing-sm)', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 'var(--spacing-sm)', flexWrap: 'wrap', marginTop: '1rem' }}>
                 {project.language && (
-                    <span style={{
-                        fontSize: '0.75rem',
-                        padding: '4px 8px',
-                        borderRadius: '100px',
-                        background: 'rgba(255, 255, 255, 0.1)',
-                        color: 'var(--text-primary)'
-                    }}>
+                    <span className="badge">
                         {project.language}
                     </span>
                 )}
