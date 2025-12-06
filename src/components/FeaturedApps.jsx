@@ -7,7 +7,7 @@ const FeaturedApps = () => {
             description: '纯浏览器端的图片编辑器，支持AI分割、背景移除、裁剪、调整大小等',
             url: 'https://songofhawk.github.io/snaplab',
             status: 'live', // 'live' or 'coming-soon'
-            icon: '🖼️'
+            icon: ''
         }
     ];
 
