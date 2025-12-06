@@ -3,9 +3,9 @@ import React from 'react';
 const FeaturedApps = () => {
     const apps = [
         {
-            name: 'Split Image',
-            description: '将图片切分成多个小块并下载',
-            url: 'https://songofhawk.github.io/split-image/',
+            name: 'SnapLab',
+            description: '纯浏览器端的图片编辑器，支持AI分割、背景移除、裁剪、调整大小等',
+            url: 'https://songofhawk.github.io/snaplab',
             status: 'live', // 'live' or 'coming-soon'
             icon: '🖼️'
         }
