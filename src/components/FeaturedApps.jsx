@@ -8,6 +8,13 @@ const FeaturedApps = () => {
             url: 'https://songofhawk.github.io/snaplab',
             status: 'live', // 'live' or 'coming-soon'
             icon: '🎨'
+        },
+        {
+            name: 'Solar System Explore',
+            description: '探索太阳系的交互式应用，由 Google AI Studio 提供支持',
+            url: 'https://aistudio.google.com/apps/drive/16ah6ReFNxKSoZ2DtfkqaV8IyrYy-Wapx?showPreview=true&showAssistant=true&fullscreenApplet=true',
+            status: 'live',
+            icon: '🪐'
         }
     ];
 
