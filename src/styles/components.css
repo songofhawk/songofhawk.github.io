@@ -208,6 +208,42 @@
     transform: translate(2px, -2px);
 }
 
+/* ---------- Card with thumbnail ---------- */
+.card-with-thumb {
+    padding: 0;
+}
+
+.card-thumb {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+}
+
+.card-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    filter: grayscale(45%) brightness(0.85) contrast(1.05);
+    transition: filter var(--t-normal) ease, transform var(--t-normal) var(--ease-out);
+}
+
+.card-with-thumb:hover .card-thumb img {
+    filter: grayscale(0%) brightness(1) contrast(1);
+    transform: scale(1.03);
+}
+
+.card-body {
+    position: relative;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
 .card-desc {
     font-family: var(--font-sans);
     font-size: 13.5px;

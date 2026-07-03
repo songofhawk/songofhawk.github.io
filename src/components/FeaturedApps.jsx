@@ -7,12 +7,14 @@ const apps = [
         name: 'snaplab',
         description: '纯浏览器端的图片编辑器 —— AI 分割、背景移除、裁剪、缩放,数据不出本机。',
         url: 'https://songofhawk.github.io/snaplab',
+        thumb: '/thumbs/snaplab.webp',
         tags: ['wasm', 'ai', 'privacy-first']
     },
     {
         name: 'solar-system-explore',
         description: '交互式太阳系探索应用,由 Google AI Studio 驱动。',
         url: 'https://aistudio.google.com/apps/drive/16ah6ReFNxKSoZ2DtfkqaV8IyrYy-Wapx?showPreview=true&showAssistant=true&fullscreenApplet=true',
+        thumb: '/thumbs/solar-system.webp',
         tags: ['3d', 'interactive']
     }
 ];
@@ -28,18 +30,23 @@ const AppCard = ({ app, index }) => {
                 href={app.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="card"
+                className="card card-with-thumb"
                 style={{ flex: 1 }}
             >
-                <h3 className="card-title">
-                    {app.name}
-                    <span className="arrow">↗</span>
-                </h3>
-                <p className="card-desc">{app.description}</p>
-                <div className="card-meta">
-                    {app.tags.map((tag) => (
-                        <span key={tag} className="tag">{tag}</span>
-                    ))}
+                <div className="card-thumb">
+                    <img src={app.thumb} alt={`${app.name} screenshot`} loading="lazy" />
+                </div>
+                <div className="card-body">
+                    <h3 className="card-title">
+                        {app.name}
+                        <span className="arrow">↗</span>
+                    </h3>
+                    <p className="card-desc">{app.description}</p>
+                    <div className="card-meta">
+                        {app.tags.map((tag) => (
+                            <span key={tag} className="tag">{tag}</span>
+                        ))}
+                    </div>
                 </div>
             </a>
         </div>
