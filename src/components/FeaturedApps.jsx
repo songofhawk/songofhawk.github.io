@@ -12,8 +12,8 @@ const apps = [
     },
     {
         name: 'solar-system-explore',
-        description: '交互式太阳系探索应用,由 Google AI Studio 驱动。',
-        url: 'https://aistudio.google.com/apps/drive/16ah6ReFNxKSoZ2DtfkqaV8IyrYy-Wapx?showPreview=true&showAssistant=true&fullscreenApplet=true',
+        description: '交互式太阳系探索应用,基于 React Three Fiber 构建。',
+        url: 'https://songofhawk.github.io/solar-system-explore',
         thumb: '/thumbs/solar-system.webp',
         tags: ['3d', 'interactive']
     }
