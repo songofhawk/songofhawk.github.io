@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { fetchGitHubProjects } from '../services/github';
 import ProjectCard from './ProjectCard';
+import SectionHead from './SectionHead';
+
+const INITIAL_COUNT = 12;
 
 const ProjectGrid = ({ username }) => {
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [expanded, setExpanded] = useState(false);
 
     useEffect(() => {
         const loadProjects = async () => {
@@ -19,41 +23,39 @@ const ProjectGrid = ({ username }) => {
         }
     }, [username]);
 
-    if (loading) {
-        return (
-            <div className="container section" style={{ textAlign: 'center', color: 'var(--text-secondary)' }}>
-                Loading projects...
-            </div>
-        );
-    }
-
-    if (projects.length === 0) {
-        return (
-            <div className="container section" style={{ textAlign: 'center', color: 'var(--text-secondary)' }}>
-                No public projects found for {username}.
-            </div>
-        );
-    }
-
     return (
         <section id="projects" className="container section">
-            <h2 style={{
-                fontSize: '2rem',
-                marginBottom: 'var(--spacing-lg)',
-                fontWeight: '700',
-                color: 'var(--text-primary)'
-            }}>
-                <span className="text-gradient">Open Source</span>
-            </h2>
-            <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-                gap: 'var(--spacing-md)'
-            }}>
-                {projects.map((project, index) => (
-                    <ProjectCard key={project.id} project={project} index={index} />
-                ))}
-            </div>
+            <SectionHead index="02" title="open source" />
+            {loading ? (
+                <div className="grid">
+                    {[0, 1, 2].map((i) => (
+                        <div key={i} className="skeleton-row" />
+                    ))}
+                </div>
+            ) : projects.length === 0 ? (
+                <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
+                    fetch: no public repos found for {username}
+                </p>
+            ) : (
+                <>
+                    <div className="grid">
+                        {(expanded ? projects : projects.slice(0, INITIAL_COUNT)).map((project, index) => (
+                            <ProjectCard key={project.id} project={project} index={index} />
+                        ))}
+                    </div>
+                    {projects.length > INITIAL_COUNT && (
+                        <button
+                            className="btn-more"
+                            onClick={() => setExpanded(!expanded)}
+                        >
+                            <span style={{ color: 'var(--accent)' }}>$ </span>
+                            {expanded
+                                ? 'ls | head -12'
+                                : `ls --all  # +${projects.length - INITIAL_COUNT} repos`}
+                        </button>
+                    )}
+                </>
+            )}
         </section>
     );
 };

@@ -1,71 +1,60 @@
 import React from 'react';
+import SectionHead from './SectionHead';
+import { useReveal, useSpotlight } from '../hooks';
 
-const FeaturedApps = () => {
-    const apps = [
-        {
-            name: 'SnapLab',
-            description: '纯浏览器端的图片编辑器，支持AI分割、背景移除、裁剪、调整大小等',
-            url: 'https://songofhawk.github.io/snaplab',
-            status: 'live', // 'live' or 'coming-soon'
-            icon: '🎨'
-        },
-        {
-            name: 'Solar System Explore',
-            description: '探索太阳系的交互式应用，由 Google AI Studio 提供支持',
-            url: 'https://aistudio.google.com/apps/drive/16ah6ReFNxKSoZ2DtfkqaV8IyrYy-Wapx?showPreview=true&showAssistant=true&fullscreenApplet=true',
-            status: 'live',
-            icon: '🪐'
-        }
-    ];
+const apps = [
+    {
+        name: 'snaplab',
+        description: '纯浏览器端的图片编辑器 —— AI 分割、背景移除、裁剪、缩放,数据不出本机。',
+        url: 'https://songofhawk.github.io/snaplab',
+        tags: ['wasm', 'ai', 'privacy-first']
+    },
+    {
+        name: 'solar-system-explore',
+        description: '交互式太阳系探索应用,由 Google AI Studio 驱动。',
+        url: 'https://aistudio.google.com/apps/drive/16ah6ReFNxKSoZ2DtfkqaV8IyrYy-Wapx?showPreview=true&showAssistant=true&fullscreenApplet=true',
+        tags: ['3d', 'interactive']
+    }
+];
+
+const AppCard = ({ app, index }) => {
+    const revealRef = useReveal();
+    const spotRef = useSpotlight();
 
     return (
-        <section className="container section">
-            <h2 style={{
-                fontSize: '2rem',
-                marginBottom: 'var(--spacing-lg)',
-                fontWeight: '700',
-                color: 'var(--text-primary)'
-            }}>
-                <span className="text-gradient">Featured Apps</span>
-            </h2>
-            <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-                gap: 'var(--spacing-md)'
-            }}>
-                {apps.map((app, index) => (
-                    <a
-                        key={index}
-                        href={app.status === 'live' ? app.url : '#'}
-                        target={app.status === 'live' ? '_blank' : '_self'}
-                        rel="noopener noreferrer"
-                        className="card glass-panel"
-                        style={{
-                            textDecoration: 'none',
-                            cursor: app.status === 'live' ? 'pointer' : 'default',
-                            opacity: app.status === 'live' ? 1 : 0.6,
-                            animation: `fade-in-up 0.5s ease-out ${index * 0.1}s backwards`
-                        }}
-                    >
-                        <div style={{ fontSize: '2rem', marginBottom: 'var(--spacing-sm)' }}>
-                            {app.icon}
-                        </div>
-                        <h3 className="card-title">
-                            {app.name}
-                            {app.status === 'coming-soon' && (
-                                <span className="badge" style={{ marginLeft: '0.5rem' }}>
-                                    Coming Soon
-                                </span>
-                            )}
-                        </h3>
-                        <p className="card-desc">
-                            {app.description}
-                        </p>
-                    </a>
-                ))}
-            </div>
-        </section>
+        <div ref={revealRef} className="reveal" style={{ '--reveal-delay': `${index * 0.08}s`, display: 'flex' }}>
+            <a
+                ref={spotRef}
+                href={app.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card"
+                style={{ flex: 1 }}
+            >
+                <h3 className="card-title">
+                    {app.name}
+                    <span className="arrow">↗</span>
+                </h3>
+                <p className="card-desc">{app.description}</p>
+                <div className="card-meta">
+                    {app.tags.map((tag) => (
+                        <span key={tag} className="tag">{tag}</span>
+                    ))}
+                </div>
+            </a>
+        </div>
     );
 };
+
+const FeaturedApps = () => (
+    <section id="apps" className="container section">
+        <SectionHead index="01" title="featured apps" />
+        <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))' }}>
+            {apps.map((app, i) => (
+                <AppCard key={app.name} app={app} index={i} />
+            ))}
+        </div>
+    </section>
+);
 
 export default FeaturedApps;
