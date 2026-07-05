@@ -16,8 +16,44 @@ const apps = [
         url: 'https://songofhawk.github.io/solar-system-explore',
         thumb: '/thumbs/solar-system.webp',
         tags: ['3d', 'interactive']
+    },
+    {
+        name: 'doco',
+        description: '轻量文档编辑器,支持富文本、Mermaid / 代码块,并可导出 MD、Word、PDF。',
+        url: 'https://github.com/songofhawk/doco',
+        preview: 'doco',
+        tags: ['editor', 'tiptap', 'export']
     }
 ];
+
+const DocoPreview = () => (
+    <div className="doco-preview" aria-hidden="true">
+        <div className="doco-window">
+            <div className="doco-window-bar">
+                <span className="doco-dot" />
+                <span className="doco-dot" />
+                <span className="doco-dot" />
+                <span className="doco-path">doco.md</span>
+                <span className="doco-export">PDF</span>
+            </div>
+            <div className="doco-editor">
+                <aside className="doco-outline">
+                    <span />
+                    <span />
+                    <span />
+                </aside>
+                <main className="doco-page">
+                    <strong>Doco Editor</strong>
+                    <span className="doco-line long" />
+                    <span className="doco-line" />
+                    <span className="doco-heading" />
+                    <span className="doco-line long" />
+                    <span className="doco-code" />
+                </main>
+            </div>
+        </div>
+    </div>
+);
 
 const AppCard = ({ app, index }) => {
     const revealRef = useReveal();
@@ -33,8 +69,12 @@ const AppCard = ({ app, index }) => {
                 className="card card-with-thumb"
                 style={{ flex: 1 }}
             >
-                <div className="card-thumb">
-                    <img src={app.thumb} alt={`${app.name} screenshot`} loading="lazy" />
+                <div className={`card-thumb${app.preview ? ` card-thumb-${app.preview}` : ''}`}>
+                    {app.preview === 'doco' ? (
+                        <DocoPreview />
+                    ) : (
+                        <img src={app.thumb} alt={`${app.name} screenshot`} loading="lazy" />
+                    )}
                 </div>
                 <div className="card-body">
                     <h3 className="card-title">

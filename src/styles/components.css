@@ -235,6 +235,149 @@
     transform: scale(1.03);
 }
 
+.card-thumb-doco {
+    display: grid;
+    place-items: center;
+    padding: 28px;
+    background:
+        linear-gradient(135deg, rgba(61, 220, 132, 0.10), transparent 34%),
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px),
+        #080808;
+    background-size: auto, 34px 34px, 34px 34px, auto;
+}
+
+.doco-preview {
+    width: min(100%, 420px);
+    aspect-ratio: 1.55;
+    display: grid;
+    place-items: center;
+    transform: rotate(-1.2deg);
+    transition: transform var(--t-normal) var(--ease-out);
+}
+
+.card-with-thumb:hover .doco-preview {
+    transform: rotate(0deg) scale(1.03);
+}
+
+.doco-window {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--line-strong);
+    background: var(--bg-elevated);
+    box-shadow:
+        0 0 0 1px rgba(61, 220, 132, 0.08),
+        0 20px 60px rgba(0, 0, 0, 0.38);
+}
+
+.doco-window-bar {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0 10px;
+    border-bottom: 1px solid var(--line);
+    color: var(--text-muted);
+    font-size: 10px;
+}
+
+.doco-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--line-strong);
+}
+
+.doco-path {
+    margin-left: 6px;
+}
+
+.doco-export {
+    margin-left: auto;
+    color: var(--accent);
+}
+
+.doco-editor {
+    height: calc(100% - 28px);
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    background: #f9fafb;
+}
+
+.doco-outline {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 22px 12px;
+    background: #f3f4f6;
+    border-right: 1px solid #e5e7eb;
+}
+
+.doco-outline span,
+.doco-line,
+.doco-heading,
+.doco-code {
+    display: block;
+    border-radius: 2px;
+}
+
+.doco-outline span {
+    height: 6px;
+    background: #d1d5db;
+}
+
+.doco-outline span:nth-child(2) {
+    width: 72%;
+}
+
+.doco-outline span:nth-child(3) {
+    width: 54%;
+}
+
+.doco-page {
+    margin: 14px 18px 0;
+    padding: 20px 22px;
+    background: #ffffff;
+    color: #111827;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
+}
+
+.doco-page strong {
+    display: block;
+    margin-bottom: 16px;
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1;
+}
+
+.doco-line {
+    width: 66%;
+    height: 7px;
+    margin-bottom: 10px;
+    background: #d1d5db;
+}
+
+.doco-line.long {
+    width: 88%;
+}
+
+.doco-heading {
+    width: 38%;
+    height: 10px;
+    margin: 18px 0 12px;
+    background: #6b7280;
+}
+
+.doco-code {
+    width: 76%;
+    height: 24px;
+    margin-top: 16px;
+    background: #111827;
+    box-shadow: inset 28px 0 0 rgba(61, 220, 132, 0.85);
+}
+
 .card-body {
     position: relative;
     padding: 24px;
