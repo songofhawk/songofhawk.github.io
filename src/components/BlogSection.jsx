@@ -34,10 +34,18 @@ const PostRow = ({ post, index }) => {
     );
 };
 
-const BlogSection = () => {
+const BlogSection = ({ index = '03', limit, page = false }) => {
     const [posts, setPosts] = useState([]);
     const [state, setState] = useState('loading'); // loading | ready | error
     const emptyRef = useReveal();
+    const visiblePosts = typeof limit === 'number' ? posts.slice(0, limit) : posts;
+
+    useEffect(() => {
+        if (!page) return undefined;
+        window.scrollTo(0, 0);
+        document.title = 'writing — songofhawk';
+        return () => { document.title = 'songofhawk@github:~$'; };
+    }, [page]);
 
     useEffect(() => {
         fetchBlogPosts()
@@ -46,8 +54,8 @@ const BlogSection = () => {
     }, []);
 
     return (
-        <section id="writing" className="container section">
-            <SectionHead index="03" title="writing" />
+        <section id="writing" className={`container section${page ? ' page-section' : ''}`}>
+            <SectionHead index={index} title="writing" />
 
             {state === 'loading' && (
                 <div className="grid" style={{ gridTemplateColumns: '1fr' }}>
@@ -82,11 +90,19 @@ const BlogSection = () => {
             )}
 
             {state === 'ready' && posts.length > 0 && (
-                <div className="grid" style={{ gridTemplateColumns: '1fr' }}>
-                    {posts.map((post, i) => (
-                        <PostRow key={post.number} post={post} index={i} />
-                    ))}
-                </div>
+                <>
+                    <div className="grid" style={{ gridTemplateColumns: '1fr' }}>
+                        {visiblePosts.map((post, i) => (
+                            <PostRow key={post.number} post={post} index={i} />
+                        ))}
+                    </div>
+                    {typeof limit === 'number' && posts.length > visiblePosts.length && (
+                        <a href="#/writing" className="btn-more">
+                            <span style={{ color: 'var(--accent)' }}>$ </span>
+                            open writing --all  # +{posts.length - visiblePosts.length} posts
+                        </a>
+                    )}
+                </>
             )}
         </section>
     );

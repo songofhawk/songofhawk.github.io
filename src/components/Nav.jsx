@@ -13,7 +13,7 @@ const Nav = () => {
                 <div className="nav-links">
                     <a href="#apps">apps</a>
                     <a href="#projects">projects</a>
-                    <a href="#writing">writing</a>
+                    <a href="#/writing">writing</a>
                     <a href="https://github.com/songofhawk" target="_blank" rel="noopener noreferrer">github ↗</a>
                 </div>
             </div>

@@ -61,6 +61,16 @@ code {
     position: relative;
 }
 
+.section.page-section {
+    padding-top: 108px;
+}
+
+@media (max-width: 640px) {
+    .section.page-section {
+        padding-top: 88px;
+    }
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
     width: 10px;

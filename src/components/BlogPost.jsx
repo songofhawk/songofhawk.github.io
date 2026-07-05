@@ -33,7 +33,7 @@ const BlogPost = ({ number }) => {
 
     return (
         <section className="container" style={{ paddingTop: '108px', paddingBottom: '88px', maxWidth: '820px' }}>
-            <a href="#writing" className="link" style={{ fontSize: '13px' }}>cd ..</a>
+            <a href="#/writing" className="link" style={{ fontSize: '13px' }}>cd ..</a>
 
             {state === 'loading' && (
                 <div className="skeleton-row" style={{ height: '200px', marginTop: '32px' }} />
@@ -81,7 +81,7 @@ const BlogPost = ({ number }) => {
                         gap: '12px',
                         fontSize: '13px'
                     }}>
-                        <a href="#writing" className="link">cd ..</a>
+                        <a href="#/writing" className="link">cd ..</a>
                         <a href={post.url} target="_blank" rel="noopener noreferrer" className="link">
                             {post.comments > 0 ? `join ${post.comments} comment${post.comments > 1 ? 's' : ''} on github ↗` : 'comment on github ↗'}
                         </a>

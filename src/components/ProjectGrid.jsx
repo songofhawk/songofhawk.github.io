@@ -5,7 +5,7 @@ import SectionHead from './SectionHead';
 
 const INITIAL_COUNT = 12;
 
-const ProjectGrid = ({ username }) => {
+const ProjectGrid = ({ username, index = '02' }) => {
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
     const [expanded, setExpanded] = useState(false);
@@ -25,7 +25,7 @@ const ProjectGrid = ({ username }) => {
 
     return (
         <section id="projects" className="container section">
-            <SectionHead index="02" title="open source" />
+            <SectionHead index={index} title="open source" />
             {loading ? (
                 <div className="grid">
                     {[0, 1, 2].map((i) => (

@@ -9,10 +9,12 @@ import FeaturedApps from './components/FeaturedApps';
 const GITHUB_USERNAME = 'songofhawk';
 
 // Hash-based routing keeps GitHub Pages happy (no 404 handling needed).
-// "#/blog/42" → post view; anything else → home.
+// "#/blog/42" → post view; "#/writing" → full writing index; anchors → home.
 const parseRoute = () => {
-    const match = window.location.hash.match(/^#\/blog\/(\d+)$/);
-    return match ? { view: 'post', number: Number(match[1]) } : { view: 'home' };
+    const blogMatch = window.location.hash.match(/^#\/blog\/(\d+)$/);
+    if (blogMatch) return { view: 'post', number: Number(blogMatch[1]) };
+    if (window.location.hash === '#/writing') return { view: 'writing' };
+    return { view: 'home' };
 };
 
 function App() {
@@ -24,18 +26,29 @@ function App() {
         return () => window.removeEventListener('hashchange', onHashChange);
     }, []);
 
+    useEffect(() => {
+        if (route.view !== 'home') return;
+        const hash = window.location.hash;
+        if (!['#apps', '#writing', '#projects'].includes(hash)) return;
+        requestAnimationFrame(() => {
+            document.querySelector(hash)?.scrollIntoView();
+        });
+    }, [route]);
+
     return (
         <>
             <Nav />
             <main>
                 {route.view === 'post' ? (
                     <BlogPost number={route.number} />
+                ) : route.view === 'writing' ? (
+                    <BlogSection index="01" page />
                 ) : (
                     <>
                         <Hero />
                         <FeaturedApps />
-                        <ProjectGrid username={GITHUB_USERNAME} />
-                        <BlogSection />
+                        <BlogSection index="02" limit={4} />
+                        <ProjectGrid username={GITHUB_USERNAME} index="03" />
                     </>
                 )}
             </main>
