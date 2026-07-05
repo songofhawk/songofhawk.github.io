@@ -6,11 +6,11 @@ const Hero = () => {
 
     return (
         <section className="container" style={{
-            paddingTop: '148px',
-            paddingBottom: '88px',
+            paddingTop: '116px',
+            paddingBottom: '52px',
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '48px',
+            gap: '36px',
             alignItems: 'center'
         }}>
             <div>
@@ -22,9 +22,9 @@ const Hero = () => {
                     fontWeight: 600,
                     lineHeight: 1.15,
                     letterSpacing: '-0.03em',
-                    marginBottom: '20px'
+                    marginBottom: '16px'
                 }}>
-                    Songofhawk
+                    songofhawk
                 </h1>
                 <p style={{
                     fontFamily: 'var(--font-sans)',
@@ -32,10 +32,10 @@ const Hero = () => {
                     color: 'var(--text-secondary)',
                     lineHeight: 1.75,
                     maxWidth: '440px',
-                    marginBottom: '32px'
+                    marginBottom: '24px'
                 }}>
-                    传统程序员能否适应无代码编程?
-                    探索人机结合的新思路 —— 用工程直觉,驾驭下一代的编程方式。
+                    多年程序员,始终追随 AI 的脚步。
+                    最近沉迷 vibe coding —— 用工程直觉,和模型一起把想法先跑起来。
                 </p>
                 <div style={{ display: 'flex', gap: '24px', fontSize: '13px' }}>
                     <a href="#projects" className="link">cd ./projects</a>
@@ -62,7 +62,7 @@ const Hero = () => {
                             <span className="ln"><span className="prompt">$ </span>cat profile.yaml</span>
                             <span className="ln"><span className="key">role:</span> <span className="val">engineer / explorer</span></span>
                             <span className="ln"><span className="key">focus:</span> <span className="val">[vibe-coding, ai-agents, web]</span></span>
-                            <span className="ln"><span className="key">belief:</span> <span className="val">"ship &gt; perfect"</span></span>
+                            <span className="ln"><span className="key">belief:</span> <span className="val">"ship first"</span></span>
                             <span className="ln">&nbsp;</span>
                             <span className="ln"><span className="prompt">$ </span><span className="cursor" /></span>
                         </>
