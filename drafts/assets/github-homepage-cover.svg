@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img">
+  <title>GitHub 个人主页和 Issue 博客系统封面图</title>
+  <desc>深色极客风格封面，展示 GitHub Pages、仓库项目和 Issue 博客组成个人主页。</desc>
+  <rect width="1200" height="675" fill="#0a0a0a"/>
+  <g opacity="0.18" stroke="#3ddc84" stroke-width="1">
+    <path d="M80 98H1120"/>
+    <path d="M80 188H1120"/>
+    <path d="M80 278H1120"/>
+    <path d="M80 368H1120"/>
+    <path d="M80 458H1120"/>
+    <path d="M80 548H1120"/>
+    <path d="M170 70V606"/>
+    <path d="M350 70V606"/>
+    <path d="M530 70V606"/>
+    <path d="M710 70V606"/>
+    <path d="M890 70V606"/>
+    <path d="M1070 70V606"/>
+  </g>
+  <rect x="76" y="76" width="620" height="432" rx="18" fill="#101010" stroke="#2c2c2c" stroke-width="2"/>
+  <rect x="76" y="76" width="620" height="54" rx="18" fill="#161616"/>
+  <circle cx="112" cy="103" r="8" fill="#ef6b5b"/>
+  <circle cx="140" cy="103" r="8" fill="#f1c45b"/>
+  <circle cx="168" cy="103" r="8" fill="#3ddc84"/>
+  <text x="204" y="109" fill="#8a8a85" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">zsh — songofhawk.github.io</text>
+  <text x="118" y="190" fill="#3ddc84" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="32">$ whoami</text>
+  <text x="118" y="248" fill="#e6e6e3" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="58" font-weight="700">个人主页</text>
+  <text x="118" y="306" fill="#e6e6e3" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="58" font-weight="700">也可以很轻</text>
+  <text x="118" y="368" fill="#8a8a85" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="27">GitHub Pages 托管页面</text>
+  <text x="118" y="414" fill="#8a8a85" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="27">GitHub API 展示项目</text>
+  <text x="118" y="460" fill="#8a8a85" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="27">GitHub Issue 直接写博客</text>
+  <rect x="118" y="536" width="324" height="48" rx="24" fill="#3ddc84"/>
+  <text x="148" y="568" fill="#0a0a0a" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="22" font-weight="700">new issue = new post</text>
+  <g transform="translate(760 116)">
+    <rect x="0" y="0" width="330" height="118" rx="16" fill="#101010" stroke="#3ddc84" stroke-width="2"/>
+    <text x="28" y="44" fill="#3ddc84" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="22">repo</text>
+    <text x="28" y="84" fill="#e6e6e3" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="25">公开项目自动展示</text>
+    <rect x="0" y="158" width="330" height="118" rx="16" fill="#101010" stroke="#3ddc84" stroke-width="2"/>
+    <text x="28" y="202" fill="#3ddc84" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="22">issue</text>
+    <text x="28" y="242" fill="#e6e6e3" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="25">带 blog 标签就是文章</text>
+    <rect x="0" y="316" width="330" height="118" rx="16" fill="#101010" stroke="#3ddc84" stroke-width="2"/>
+    <text x="28" y="360" fill="#3ddc84" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="22">pages</text>
+    <text x="28" y="400" fill="#e6e6e3" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="25">不用服务器也能上线</text>
+  </g>
+  <text x="78" y="632" fill="#55554f" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18">github pages · github api · github issues · zero backend</text>
+</svg>

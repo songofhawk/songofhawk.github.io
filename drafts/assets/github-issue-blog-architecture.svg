@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img">
+  <title>GitHub 个人主页架构图</title>
+  <desc>展示浏览器访问静态站点，站点从 GitHub API 获取仓库项目和博客 Issue。</desc>
+  <rect width="1200" height="760" fill="#0a0a0a"/>
+  <text x="80" y="88" fill="#e6e6e3" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="44" font-weight="700">这个个人主页其实只有三层</text>
+  <text x="80" y="134" fill="#8a8a85" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="24">页面是静态的，内容来自 GitHub，读者只需要打开浏览器。</text>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#3ddc84" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <g font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
+    <rect x="80" y="260" width="230" height="150" rx="18" fill="#101010" stroke="#2c2c2c" stroke-width="2"/>
+    <text x="118" y="322" fill="#e6e6e3" font-size="28" font-weight="700">读者浏览器</text>
+    <text x="118" y="365" fill="#8a8a85" font-size="21">打开个人主页</text>
+    <text x="118" y="398" fill="#8a8a85" font-size="21">阅读项目和文章</text>
+    <path d="M310 335H430" stroke="#3ddc84" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+    <rect x="430" y="222" width="340" height="226" rx="22" fill="#101010" stroke="#3ddc84" stroke-width="3"/>
+    <text x="478" y="286" fill="#3ddc84" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="24">songofhawk.github.io</text>
+    <text x="478" y="340" fill="#e6e6e3" font-size="32" font-weight="700">静态前端页面</text>
+    <text x="478" y="389" fill="#8a8a85" font-size="22">React + Vite</text>
+    <text x="478" y="424" fill="#8a8a85" font-size="22">GitHub Pages 托管</text>
+    <path d="M770 286H894" stroke="#3ddc84" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+    <path d="M770 384H894" stroke="#3ddc84" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+    <rect x="894" y="196" width="246" height="130" rx="18" fill="#101010" stroke="#2c2c2c" stroke-width="2"/>
+    <text x="930" y="249" fill="#e6e6e3" font-size="27" font-weight="700">GitHub repos</text>
+    <text x="930" y="290" fill="#8a8a85" font-size="21">公开项目列表</text>
+    <rect x="894" y="362" width="246" height="154" rx="18" fill="#101010" stroke="#2c2c2c" stroke-width="2"/>
+    <text x="930" y="414" fill="#e6e6e3" font-size="27" font-weight="700">GitHub issues</text>
+    <text x="930" y="455" fill="#8a8a85" font-size="21">blog 标签文章</text>
+    <text x="930" y="487" fill="#8a8a85" font-size="21">评论区也在这里</text>
+  </g>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20">
+    <rect x="166" y="555" width="868" height="74" rx="12" fill="#161616" stroke="#2c2c2c" stroke-width="2"/>
+    <text x="204" y="601" fill="#3ddc84">$ fetch /repos + /issues?labels=blog → render homepage</text>
+  </g>
+</svg>
