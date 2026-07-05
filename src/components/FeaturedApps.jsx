@@ -20,7 +20,7 @@ const apps = [
     {
         name: 'doco',
         description: '轻量文档编辑器,支持富文本、Mermaid / 代码块,并可导出 MD、Word、PDF。',
-        url: 'https://github.com/songofhawk/doco',
+        url: 'https://doco-editor.pages.dev/',
         preview: 'doco',
         tags: ['editor', 'tiptap', 'export']
     }
