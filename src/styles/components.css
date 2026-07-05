@@ -475,6 +475,19 @@
     padding: 18px 20px;
 }
 
+.hero-term {
+    font-size: 12.5px;
+}
+
+.hero-term .term-bar {
+    padding: 8px 12px;
+}
+
+.hero-term .term-body {
+    padding: 14px 16px;
+    line-height: 1.55;
+}
+
 .term-body .ln {
     display: block;
     white-space: pre-wrap;
