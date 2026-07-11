@@ -1,25 +1,26 @@
 import React from 'react';
 import SectionHead from './SectionHead';
 import { useReveal, useSpotlight } from '../hooks';
+import { useI18n } from '../useI18n';
 
 const apps = [
     {
         name: 'snaplab',
-        description: '纯浏览器端的图片编辑器 —— AI 分割、背景移除、裁剪、缩放,数据不出本机。',
+        descriptionKey: 'snaplab',
         url: 'https://songofhawk.github.io/snaplab',
         thumb: '/thumbs/snaplab.webp',
         tags: ['wasm', 'ai', 'privacy-first']
     },
     {
         name: 'solar-system-explore',
-        description: '交互式太阳系探索应用,基于 React Three Fiber 构建。',
+        descriptionKey: 'solarSystem',
         url: 'https://songofhawk.github.io/solar-system-explore',
         thumb: '/thumbs/solar-system.webp',
         tags: ['3d', 'interactive']
     },
     {
         name: 'doco',
-        description: '轻量文档编辑器,支持富文本、Mermaid / 代码块,并可导出 MD、Word、PDF。',
+        descriptionKey: 'doco',
         url: 'https://doco-editor.pages.dev/',
         preview: 'doco',
         tags: ['editor', 'tiptap', 'export']
@@ -58,6 +59,7 @@ const DocoPreview = () => (
 const AppCard = ({ app, index }) => {
     const revealRef = useReveal();
     const spotRef = useSpotlight();
+    const { copy } = useI18n();
 
     return (
         <div ref={revealRef} className="reveal" style={{ '--reveal-delay': `${index * 0.08}s`, display: 'flex' }}>
@@ -73,7 +75,7 @@ const AppCard = ({ app, index }) => {
                     {app.preview === 'doco' ? (
                         <DocoPreview />
                     ) : (
-                        <img src={app.thumb} alt={`${app.name} screenshot`} loading="lazy" />
+                        <img src={app.thumb} alt={copy.apps.screenshot(app.name)} loading="lazy" />
                     )}
                 </div>
                 <div className="card-body">
@@ -81,7 +83,7 @@ const AppCard = ({ app, index }) => {
                         {app.name}
                         <span className="arrow">↗</span>
                     </h3>
-                    <p className="card-desc">{app.description}</p>
+                    <p className="card-desc">{copy.apps[app.descriptionKey]}</p>
                     <div className="card-meta">
                         {app.tags.map((tag) => (
                             <span key={tag} className="tag">{tag}</span>
@@ -93,15 +95,19 @@ const AppCard = ({ app, index }) => {
     );
 };
 
-const FeaturedApps = () => (
+const FeaturedApps = () => {
+    const { copy } = useI18n();
+
+    return (
     <section id="apps" className="container section">
-        <SectionHead index="01" title="featured apps" />
+        <SectionHead index="01" title={copy.sections.apps} />
         <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))' }}>
             {apps.map((app, i) => (
                 <AppCard key={app.name} app={app} index={i} />
             ))}
         </div>
     </section>
-);
+    );
+};
 
 export default FeaturedApps;

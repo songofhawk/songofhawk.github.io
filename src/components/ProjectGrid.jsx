@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchGitHubProjects } from '../services/github';
 import ProjectCard from './ProjectCard';
 import SectionHead from './SectionHead';
+import { useI18n } from '../useI18n';
 
 const INITIAL_COUNT = 12;
 
@@ -9,6 +10,7 @@ const ProjectGrid = ({ username, index = '02' }) => {
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
     const [expanded, setExpanded] = useState(false);
+    const { copy } = useI18n();
 
     useEffect(() => {
         const loadProjects = async () => {
@@ -25,7 +27,7 @@ const ProjectGrid = ({ username, index = '02' }) => {
 
     return (
         <section id="projects" className="container section">
-            <SectionHead index={index} title="open source" />
+            <SectionHead index={index} title={copy.sections.projects} />
             {loading ? (
                 <div className="grid">
                     {[0, 1, 2].map((i) => (
@@ -34,7 +36,7 @@ const ProjectGrid = ({ username, index = '02' }) => {
                 </div>
             ) : projects.length === 0 ? (
                 <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
-                    fetch: no public repos found for {username}
+                    {copy.projects.empty(username)}
                 </p>
             ) : (
                 <>
@@ -50,8 +52,8 @@ const ProjectGrid = ({ username, index = '02' }) => {
                         >
                             <span style={{ color: 'var(--accent)' }}>$ </span>
                             {expanded
-                                ? 'ls | head -12'
-                                : `ls --all  # +${projects.length - INITIAL_COUNT} repos`}
+                                ? copy.projects.showLess
+                                : copy.projects.showMore(projects.length - INITIAL_COUNT)}
                         </button>
                     )}
                 </>

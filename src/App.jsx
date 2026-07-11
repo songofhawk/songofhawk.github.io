@@ -5,6 +5,7 @@ import ProjectGrid from './components/ProjectGrid';
 import BlogSection from './components/BlogSection';
 import BlogPost from './components/BlogPost';
 import FeaturedApps from './components/FeaturedApps';
+import { useI18n } from './useI18n';
 
 const GITHUB_USERNAME = 'songofhawk';
 
@@ -19,6 +20,7 @@ const parseRoute = () => {
 
 function App() {
     const [route, setRoute] = useState(parseRoute);
+    const { copy } = useI18n();
 
     useEffect(() => {
         const onHashChange = () => setRoute(parseRoute());
@@ -56,7 +58,7 @@ function App() {
                 <div className="footer-inner">
                     <span>© {new Date().getFullYear()} songofhawk — MIT</span>
                     <span>
-                        <span className="ok">●</span> react + vite · no trackers · system fonts only
+                        <span className="ok">●</span> {copy.footer.stack}
                     </span>
                 </div>
             </footer>

@@ -1,8 +1,10 @@
 import React from 'react';
 import { useTypewriter } from '../hooks';
+import { useI18n } from '../useI18n';
 
 const Hero = () => {
     const { output, done } = useTypewriter('whoami', 90, 600);
+    const { copy } = useI18n();
 
     return (
         <section className="container" style={{
@@ -15,7 +17,7 @@ const Hero = () => {
         }}>
             <div>
                 <p style={{ fontSize: '13px', color: 'var(--accent)', marginBottom: '12px', letterSpacing: '0.08em' }}>
-                    // 传统程序员 × 无代码编程
+                    {copy.hero.eyebrow}
                 </p>
                 <h1 style={{
                     fontSize: 'clamp(2.2rem, 4.5vw, 3.4rem)',
@@ -34,13 +36,12 @@ const Hero = () => {
                     maxWidth: '440px',
                     marginBottom: '20px'
                 }}>
-                    多年程序员,始终追随 AI 的脚步。
-                    最近沉迷 vibe coding —— 用工程直觉,和模型一起把想法先跑起来。
+                    {copy.hero.intro}
                 </p>
                 <div style={{ display: 'flex', gap: '24px', fontSize: '13px' }}>
-                    <a href="#projects" className="link">cd ./projects</a>
+                    <a href="#projects" className="link">{copy.hero.projects}</a>
                     <a href="https://github.com/songofhawk" target="_blank" rel="noopener noreferrer" className="link">
-                        open github ↗
+                        {copy.hero.github}
                     </a>
                 </div>
             </div>
@@ -59,9 +60,9 @@ const Hero = () => {
                         <>
                             <span className="ln out">song_of_hawk</span>
                             <span className="ln"><span className="prompt">$ </span>cat profile.yaml</span>
-                            <span className="ln"><span className="key">role:</span> <span className="val">engineer / explorer</span></span>
-                            <span className="ln"><span className="key">focus:</span> <span className="val">[vibe-coding, ai-agents, web]</span></span>
-                            <span className="ln"><span className="key">belief:</span> <span className="val">"ship first"</span></span>
+                            <span className="ln"><span className="key">role:</span> <span className="val">{copy.hero.terminalRole}</span></span>
+                            <span className="ln"><span className="key">focus:</span> <span className="val">{copy.hero.terminalFocus}</span></span>
+                            <span className="ln"><span className="key">belief:</span> <span className="val">"{copy.hero.terminalBelief}"</span></span>
                             <span className="ln"><span className="prompt">$ </span><span className="cursor" /></span>
                         </>
                     )}

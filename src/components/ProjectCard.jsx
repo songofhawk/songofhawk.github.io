@@ -1,5 +1,6 @@
 import React from 'react';
 import { useReveal, useSpotlight } from '../hooks';
+import { useI18n } from '../useI18n';
 
 const LANG_COLORS = {
     JavaScript: '#f1e05a',
@@ -23,17 +24,18 @@ const LANG_COLORS = {
     Lua: '#000080'
 };
 
-const timeAgo = (dateString) => {
+const timeAgo = (dateString, copy) => {
     const days = Math.floor((Date.now() - new Date(dateString)) / 86400000);
-    if (days < 1) return 'today';
-    if (days < 30) return `${days}d ago`;
-    if (days < 365) return `${Math.floor(days / 30)}mo ago`;
-    return `${Math.floor(days / 365)}y ago`;
+    if (days < 1) return copy.today;
+    if (days < 30) return copy.daysAgo(days);
+    if (days < 365) return copy.monthsAgo(Math.floor(days / 30));
+    return copy.yearsAgo(Math.floor(days / 365));
 };
 
 const ProjectCard = ({ project, index }) => {
     const revealRef = useReveal();
     const spotRef = useSpotlight();
+    const { copy } = useI18n();
 
     return (
         <div ref={revealRef} className="reveal" style={{ '--reveal-delay': `${(index % 3) * 0.08}s`, display: 'flex' }}>
@@ -50,7 +52,7 @@ const ProjectCard = ({ project, index }) => {
                     <span className="arrow">↗</span>
                 </h3>
                 <p className="card-desc">
-                    {project.description || '// no description'}
+                    {project.description || copy.projects.noDescription}
                 </p>
                 <div className="card-meta">
                     {project.language && (
@@ -63,7 +65,7 @@ const ProjectCard = ({ project, index }) => {
                         </span>
                     )}
                     {project.stargazers_count > 0 && <span>★ {project.stargazers_count}</span>}
-                    <span style={{ marginLeft: 'auto' }}>{timeAgo(project.pushed_at || project.updated_at)}</span>
+                    <span style={{ marginLeft: 'auto' }}>{timeAgo(project.pushed_at || project.updated_at, copy.projects)}</span>
                 </div>
             </a>
         </div>

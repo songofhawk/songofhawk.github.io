@@ -62,9 +62,9 @@ export const excerpt = (markdown, maxLen = 120) => {
 };
 
 /** Rough reading time from CJK chars + latin words. */
-export const readingTime = (markdown) => {
+export const readingMinutes = (markdown) => {
     const cjk = (markdown.match(/[一-鿿]/g) || []).length;
     const words = (markdown.replace(/[一-鿿]/g, ' ').match(/\S+/g) || []).length;
     const minutes = Math.max(1, Math.round(cjk / 350 + words / 200));
-    return `${minutes} min`;
+    return minutes;
 };
