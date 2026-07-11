@@ -13,7 +13,7 @@ const PostRow = ({ post, index }) => {
 
     return (
         <div ref={revealRef} className="reveal" style={{ '--reveal-delay': `${(index % 4) * 0.06}s`, display: 'flex' }}>
-            <a ref={spotRef} href={`#/blog/${post.number}`} className="card post-row" style={{ flex: 1 }}>
+            <a ref={spotRef} href={`#/blog/${encodeURIComponent(post.slug)}`} className="card post-row" style={{ flex: 1 }}>
                 <div className="post-row-head">
                     <h3 className="card-title">
                         {post.title}
@@ -41,7 +41,7 @@ const BlogSection = ({ index = '03', limit, page = false }) => {
     const [state, setState] = useState('loading'); // loading | ready | error
     const emptyRef = useReveal();
     const visiblePosts = typeof limit === 'number' ? posts.slice(0, limit) : posts;
-    const { copy } = useI18n();
+    const { locale, copy } = useI18n();
 
     useEffect(() => {
         if (!page) return undefined;
@@ -51,10 +51,18 @@ const BlogSection = ({ index = '03', limit, page = false }) => {
     }, [page, copy.blog.title]);
 
     useEffect(() => {
-        fetchBlogPosts()
-            .then((data) => { setPosts(data); setState('ready'); })
-            .catch(() => setState('error'));
-    }, []);
+        let active = true;
+        fetchBlogPosts(locale)
+            .then((data) => {
+                if (!active) return;
+                setPosts(data);
+                setState('ready');
+            })
+            .catch(() => {
+                if (active) setState('error');
+            });
+        return () => { active = false; };
+    }, [locale]);
 
     return (
         <section id="writing" className={`container section${page ? ' page-section' : ''}`}>

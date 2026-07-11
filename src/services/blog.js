@@ -1,50 +1,129 @@
 const REPO = 'songofhawk/songofhawk.github.io';
 const AUTHOR = 'songofhawk';
-const CACHE_KEY = 'blog-posts-v1';
+const CACHE_PREFIX = 'blog-posts-v2';
 const CACHE_TTL = 10 * 60 * 1000; // 10 minutes
 
-const normalize = (issue) => ({
-    number: issue.number,
-    title: issue.title,
-    body: issue.body || '',
-    createdAt: issue.created_at,
-    comments: issue.comments,
-    url: issue.html_url,
-    tags: issue.labels
-        .map((l) => l.name)
-        .filter((name) => name !== 'blog'),
-});
+const BLOG_LANGUAGES = {
+    'zh-CN': 'zh',
+    en: 'en',
+};
+
+const META_PATTERN = /^\s*<!--\s*blog-meta\s*\n([\s\S]*?)-->\s*/i;
+const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+const normalizeLocale = (locale) => locale === 'zh-CN' ? 'zh-CN' : 'en';
+
+const alternateLocale = (locale) => normalizeLocale(locale) === 'zh-CN' ? 'en' : 'zh-CN';
+
+const parseBlogMeta = (source) => {
+    const body = source || '';
+    const match = body.match(META_PATTERN);
+    if (!match) return { meta: {}, body };
+
+    const meta = {};
+    match[1].split('\n').forEach((line) => {
+        const separator = line.indexOf(':');
+        if (separator < 1) return;
+        const key = line.slice(0, separator).trim().toLowerCase();
+        const value = line.slice(separator + 1).trim();
+        if (key && value) meta[key] = value;
+    });
+
+    return { meta, body: body.slice(match[0].length) };
+};
+
+const normalize = (issue, locale) => {
+    const { meta, body } = parseBlogMeta(issue.body);
+    const requestedSlug = meta.slug?.toLowerCase();
+    const slug = SLUG_PATTERN.test(requestedSlug) ? requestedSlug : `issue-${issue.number}`;
+    const requestedDiscussion = Number.parseInt(meta.comments, 10);
+    const discussionNumber = Number.isInteger(requestedDiscussion) && requestedDiscussion > 0
+        ? requestedDiscussion
+        : issue.number;
+
+    return {
+        number: issue.number,
+        slug,
+        locale: normalizeLocale(locale),
+        title: issue.title,
+        body,
+        createdAt: issue.created_at,
+        comments: discussionNumber === issue.number ? issue.comments : null,
+        discussionUrl: `https://github.com/${REPO}/issues/${discussionNumber}`,
+        tags: issue.labels
+            .map((label) => label.name)
+            .filter((name) => name !== 'blog' && !name.startsWith('lang:')),
+    };
+};
+
+const readCache = (key) => {
+    try {
+        const cached = sessionStorage.getItem(key);
+        if (!cached) return null;
+        const { at, posts } = JSON.parse(cached);
+        return Date.now() - at < CACHE_TTL ? posts : null;
+    } catch {
+        return null;
+    }
+};
+
+const writeCache = (key, posts) => {
+    try {
+        sessionStorage.setItem(key, JSON.stringify({ at: Date.now(), posts }));
+    } catch { /* cache is best-effort */ }
+};
 
 /**
- * Blog posts are GitHub issues labeled `blog`, authored by the repo owner.
- * Zero backend: writing a post = opening an issue; comments come free.
+ * Blog posts are GitHub issues labeled `blog` plus `lang:zh` or `lang:en`.
+ * The API only returns the requested language; issue-body metadata links translations.
  */
-export const fetchBlogPosts = async () => {
-    try {
-        const cached = sessionStorage.getItem(CACHE_KEY);
-        if (cached) {
-            const { at, posts } = JSON.parse(cached);
-            if (Date.now() - at < CACHE_TTL) return posts;
-        }
-    } catch { /* cache is best-effort */ }
+export const fetchBlogPosts = async (locale) => {
+    const normalizedLocale = normalizeLocale(locale);
+    const language = BLOG_LANGUAGES[normalizedLocale];
+    const cacheKey = `${CACHE_PREFIX}:${language}`;
+    const cached = readCache(cacheKey);
+    if (cached) return cached;
 
+    const params = new URLSearchParams({
+        labels: `blog,lang:${language}`,
+        creator: AUTHOR,
+        state: 'open',
+        per_page: '100',
+    });
     const res = await fetch(
-        `https://api.github.com/repos/${REPO}/issues?labels=blog&creator=${AUTHOR}&state=open&per_page=100`,
+        `https://api.github.com/repos/${REPO}/issues?${params}`,
         { headers: { Accept: 'application/vnd.github+json' } }
     );
     if (!res.ok) {
         throw new Error(res.status === 403 ? 'rate-limited' : `http ${res.status}`);
     }
+
     const data = await res.json();
     const posts = data
-        // the issues API also returns PRs; and only trust the owner's issues
-        .filter((it) => !it.pull_request && it.user?.login === AUTHOR)
-        .map(normalize);
+        // The issues API also returns pull requests; only trust the repository owner.
+        .filter((item) => !item.pull_request && item.user?.login === AUTHOR)
+        .map((issue) => normalize(issue, normalizedLocale));
 
-    try {
-        sessionStorage.setItem(CACHE_KEY, JSON.stringify({ at: Date.now(), posts }));
-    } catch { /* ignore quota errors */ }
+    writeCache(cacheKey, posts);
     return posts;
+};
+
+const findPost = (posts, identifier) => {
+    const value = String(identifier);
+    const issueNumber = /^\d+$/.test(value) ? Number(value) : null;
+    return posts.find((post) => post.slug === value || post.number === issueNumber);
+};
+
+/** Find the requested translation, falling back to the other language when absent. */
+export const fetchBlogPost = async (identifier, locale) => {
+    const normalizedLocale = normalizeLocale(locale);
+    const preferredPosts = await fetchBlogPosts(normalizedLocale);
+    const preferred = findPost(preferredPosts, identifier);
+    if (preferred) return { post: preferred, isFallback: false };
+
+    const fallbackPosts = await fetchBlogPosts(alternateLocale(normalizedLocale));
+    const fallback = findPost(fallbackPosts, identifier);
+    return fallback ? { post: fallback, isFallback: true } : null;
 };
 
 /** Strip markdown syntax for a plain-text excerpt. */
@@ -65,6 +144,5 @@ export const excerpt = (markdown, maxLen = 120) => {
 export const readingMinutes = (markdown) => {
     const cjk = (markdown.match(/[一-鿿]/g) || []).length;
     const words = (markdown.replace(/[一-鿿]/g, ' ').match(/\S+/g) || []).length;
-    const minutes = Math.max(1, Math.round(cjk / 350 + words / 200));
-    return minutes;
+    return Math.max(1, Math.round(cjk / 350 + words / 200));
 };

@@ -1,16 +1,57 @@
-# React + Vite
+# songofhawk.github.io
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+songofhawk 的个人主页，使用 React、Vite 和 GitHub Pages 构建。公开项目来自 GitHub API，博客文章来自当前仓库的 GitHub Issues。
 
-Currently, two official plugins are available:
+## 本地运行
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+提交前检查：
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm run lint
+npm run build
+```
 
-## Expanding the ESLint configuration
+## 发布双语文章
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+每个语言版本使用一个独立 Issue。所有文章都需要 `blog` 标签，并按语言添加以下标签之一：
+
+- 中文：`lang:zh`
+- 英文：`lang:en`
+
+网站会根据当前界面语言直接从 GitHub API 拉取对应标签的文章。
+
+### 文章元数据
+
+在 Issue 正文最顶部加入：
+
+```md
+<!-- blog-meta
+slug: article-slug
+comments: 3
+-->
+```
+
+- `slug`：文章的稳定地址标识，只能使用小写字母、数字和连字符。中英文版本必须使用相同的 `slug`。
+- `comments`：用于讨论的 GitHub Issue 编号。中英文版本填写同一个编号即可共享评论入口；省略时使用当前 Issue。
+
+示例：
+
+```text
+中文 Issue：blog + lang:zh，slug: github-personal-homepage
+英文 Issue：blog + lang:en，slug: github-personal-homepage
+```
+
+文章地址为：
+
+```text
+#/blog/github-personal-homepage
+```
+
+用户切换界面语言时，网站会加载同一 `slug` 的对应译文。如果译文尚不存在，详情页会显示另一语言的原文和明确提示；文章列表只展示当前语言已有的文章。
+
+旧的 Issue 编号链接（例如 `#/blog/3`）仍然有效，并会自动升级为对应的 slug 地址。

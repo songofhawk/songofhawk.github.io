@@ -616,6 +616,28 @@
 }
 
 /* ---------- Rendered markdown (blog post body) ---------- */
+.translation-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 28px;
+    padding: 14px 16px;
+    border: 1px solid var(--line-strong);
+    border-left: 2px solid var(--accent);
+    border-radius: 8px;
+    background: var(--accent-faint);
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    line-height: 1.6;
+}
+
+.translation-notice > span {
+    flex: 0 0 auto;
+    color: var(--accent);
+    font-family: var(--font-mono);
+}
+
 .post-body {
     font-family: var(--font-sans);
     font-size: 15.5px;

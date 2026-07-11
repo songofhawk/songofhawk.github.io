@@ -1,32 +1,45 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
-import { fetchBlogPosts, readingMinutes } from '../services/blog';
+import { fetchBlogPost, readingMinutes } from '../services/blog';
 import { useI18n } from '../useI18n';
 
 const formatDate = (iso) => iso.slice(0, 10);
 
-const BlogPost = ({ number }) => {
+const BlogPost = ({ identifier }) => {
     const [post, setPost] = useState(null);
     const [state, setState] = useState('loading');
-    const { copy } = useI18n();
+    const [isFallback, setIsFallback] = useState(false);
+    const { locale, copy } = useI18n();
 
     useEffect(() => {
+        let active = true;
         window.scrollTo(0, 0);
-        fetchBlogPosts()
-            .then((posts) => {
-                const found = posts.find((p) => p.number === number);
-                if (found) {
-                    setPost(found);
+        fetchBlogPost(identifier, locale)
+            .then((result) => {
+                if (!active) return;
+                if (result) {
+                    setPost(result.post);
+                    setIsFallback(result.isFallback);
                     setState('ready');
-                    document.title = `${found.title} — songofhawk`;
+                    document.title = `${result.post.title} — songofhawk`;
+                    if (/^\d+$/.test(String(identifier))) {
+                        window.history.replaceState(null, '', `#/blog/${encodeURIComponent(result.post.slug)}`);
+                        window.dispatchEvent(new HashChangeEvent('hashchange'));
+                    }
                 } else {
+                    setPost(null);
                     setState('missing');
                 }
             })
-            .catch(() => setState('error'));
-        return () => { document.title = 'songofhawk@github:~$'; };
-    }, [number]);
+            .catch(() => {
+                if (active) setState('error');
+            });
+        return () => {
+            active = false;
+            document.title = 'songofhawk@github:~$';
+        };
+    }, [identifier, locale]);
 
     const html = useMemo(() => {
         if (!post) return '';
@@ -43,12 +56,18 @@ const BlogPost = ({ number }) => {
 
             {(state === 'error' || state === 'missing') && (
                 <p style={{ marginTop: '32px', fontSize: '13px', color: 'var(--text-muted)' }}>
-                    {state === 'missing' ? copy.blog.missing(number) : copy.blog.error}
+                    {state === 'missing' ? copy.blog.missing(identifier) : copy.blog.error}
                 </p>
             )}
 
             {state === 'ready' && post && (
                 <article style={{ marginTop: '32px' }}>
+                    {isFallback && (
+                        <aside className="translation-notice" role="status">
+                            <span aria-hidden="true">!</span>
+                            {copy.blog.translationFallback}
+                        </aside>
+                    )}
                     <header style={{ marginBottom: '40px' }}>
                         <p style={{ fontSize: '13px', color: 'var(--accent)', marginBottom: '12px' }}>
                             $ cat posts/{post.number}.md
@@ -84,7 +103,7 @@ const BlogPost = ({ number }) => {
                         fontSize: '13px'
                     }}>
                         <a href="#/writing" className="link">{copy.blog.back}</a>
-                        <a href={post.url} target="_blank" rel="noopener noreferrer" className="link">
+                        <a href={post.discussionUrl} target="_blank" rel="noopener noreferrer" className="link">
                             {copy.blog.comments(post.comments)}
                         </a>
                     </footer>

@@ -9,18 +9,26 @@ import { useI18n } from './useI18n';
 
 const GITHUB_USERNAME = 'songofhawk';
 
+const decodeRouteSegment = (segment) => {
+    try {
+        return decodeURIComponent(segment);
+    } catch {
+        return segment;
+    }
+};
+
 // Hash-based routing keeps GitHub Pages happy (no 404 handling needed).
-// "#/blog/42" → post view; "#/writing" → full writing index; anchors → home.
+// "#/blog/article-slug" → post view; legacy numeric routes remain supported.
 const parseRoute = () => {
-    const blogMatch = window.location.hash.match(/^#\/blog\/(\d+)$/);
-    if (blogMatch) return { view: 'post', number: Number(blogMatch[1]) };
+    const blogMatch = window.location.hash.match(/^#\/blog\/([^/?#]+)$/);
+    if (blogMatch) return { view: 'post', identifier: decodeRouteSegment(blogMatch[1]) };
     if (window.location.hash === '#/writing') return { view: 'writing' };
     return { view: 'home' };
 };
 
 function App() {
     const [route, setRoute] = useState(parseRoute);
-    const { copy } = useI18n();
+    const { locale, copy } = useI18n();
 
     useEffect(() => {
         const onHashChange = () => setRoute(parseRoute());
@@ -42,14 +50,14 @@ function App() {
             <Nav />
             <main>
                 {route.view === 'post' ? (
-                    <BlogPost number={route.number} />
+                    <BlogPost key={`${locale}:${route.identifier}`} identifier={route.identifier} />
                 ) : route.view === 'writing' ? (
-                    <BlogSection index="01" page />
+                    <BlogSection key={`writing:${locale}`} index="01" page />
                 ) : (
                     <>
                         <Hero />
                         <FeaturedApps />
-                        <BlogSection index="02" limit={4} />
+                        <BlogSection key={`home-writing:${locale}`} index="02" limit={4} />
                         <ProjectGrid username={GITHUB_USERNAME} index="03" />
                     </>
                 )}
