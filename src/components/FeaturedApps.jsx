@@ -21,9 +21,9 @@ const apps = [
     {
         name: 'doco',
         descriptionKey: 'doco',
-        url: 'https://doco-editor.pages.dev/',
+        url: 'https://doco.page/',
         preview: 'doco',
-        tags: ['editor', 'tiptap', 'export']
+        tags: ['agent-native', 'mcp', 'collaboration']
     }
 ];
 

@@ -15,12 +15,14 @@ const messages = {
         },
         hero: {
             eyebrow: '// 传统程序员 × 无代码编程',
-            intro: '多年程序员，始终追随 AI 的脚步。最近沉迷 vibe coding —— 用工程直觉，和模型一起把想法先跑起来。',
+            intro: '多年程序员，正在做 Doco：一间人与 Agent 共用的在线书房。用工程直觉和模型一起，把可靠的人机协作真正做出来。',
             projects: 'cd ./项目',
+            doco: '打开 Doco ↗',
             github: '打开 GitHub ↗',
+            x: '关注 X ↗',
             terminalRole: '工程师 / 探索者',
-            terminalFocus: '[氛围编程, AI 智能体, Web]',
-            terminalBelief: '先做出来',
+            terminalFocus: '[Agent 原生文档, 人机协作, Web]',
+            terminalBelief: '先做出来，再把它做可靠',
         },
         sections: {
             apps: '精选应用',
@@ -30,7 +32,7 @@ const messages = {
         apps: {
             snaplab: '纯浏览器端的图片编辑器 —— AI 分割、背景移除、裁剪、缩放，数据不出本机。',
             solarSystem: '交互式太阳系探索应用，基于 React Three Fiber 构建。',
-            doco: '轻量文档编辑器，支持富文本、Mermaid / 代码块，并可导出 MD、Word、PDF。',
+            doco: '人与 Agent 共用的文档空间：稳定块寻址、乐观并发、实时协同与一条命令 MCP 接入。',
             screenshot: (name) => `${name} 应用截图`,
         },
         projects: {
@@ -58,7 +60,7 @@ const messages = {
             stack: 'React + Vite · 无追踪器 · 仅系统字体',
         },
         meta: {
-            description: 'songofhawk — 工程师 / 探索者。传统程序员探索无代码编程与人机结合的新思路。',
+            description: 'songofhawk — 工程师与 Doco 作者，正在构建人与 AI Agent 共用、可安全读写的文档空间。',
         },
     },
     en: {
@@ -72,12 +74,14 @@ const messages = {
         },
         hero: {
             eyebrow: '// traditional coder × no-code building',
-            intro: 'A longtime programmer, always following where AI leads. Lately I have been immersed in vibe coding — pairing engineering intuition with models to turn ideas into working things.',
+            intro: 'A longtime programmer building Doco: a shared study where humans and AI agents can write together. I pair engineering judgment with models to make human–agent collaboration dependable.',
             projects: 'cd ./projects',
+            doco: 'open Doco ↗',
             github: 'open github ↗',
+            x: 'follow on X ↗',
             terminalRole: 'engineer / explorer',
-            terminalFocus: '[vibe-coding, ai-agents, web]',
-            terminalBelief: 'ship first',
+            terminalFocus: '[agent-native docs, human–AI collaboration, web]',
+            terminalBelief: 'ship it, then make it dependable',
         },
         sections: {
             apps: 'featured apps',
@@ -87,7 +91,7 @@ const messages = {
         apps: {
             snaplab: 'A browser-only image editor with AI segmentation, background removal, cropping, and resizing. Your data stays on your device.',
             solarSystem: 'An interactive Solar System explorer built with React Three Fiber.',
-            doco: 'A lightweight document editor with rich text, Mermaid diagrams, code blocks, and export to Markdown, Word, and PDF.',
+            doco: 'The document space where humans and AI agents write together — stable block addresses, optimistic concurrency, live collaboration, and one-command MCP setup.',
             screenshot: (name) => `${name} screenshot`,
         },
         projects: {
@@ -115,7 +119,7 @@ const messages = {
             stack: 'React + Vite · no trackers · system fonts only',
         },
         meta: {
-            description: 'songofhawk — engineer / explorer. A traditional programmer exploring no-code building and new ways for humans and AI to work together.',
+            description: 'songofhawk — engineer and creator of Doco, building an agent-native document space humans and AI can safely write together.',
         },
     },
 };

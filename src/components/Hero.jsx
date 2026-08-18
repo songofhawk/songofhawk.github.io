@@ -38,10 +38,16 @@ const Hero = () => {
                 }}>
                     {copy.hero.intro}
                 </p>
-                <div style={{ display: 'flex', gap: '24px', fontSize: '13px' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px 24px', fontSize: '13px' }}>
                     <a href="#projects" className="link">{copy.hero.projects}</a>
+                    <a href="https://doco.page/" target="_blank" rel="noopener noreferrer" className="link">
+                        {copy.hero.doco}
+                    </a>
                     <a href="https://github.com/songofhawk" target="_blank" rel="noopener noreferrer" className="link">
                         {copy.hero.github}
+                    </a>
+                    <a href="https://x.com/songofhawk" target="_blank" rel="noopener noreferrer" className="link">
+                        {copy.hero.x}
                     </a>
                 </div>
             </div>
