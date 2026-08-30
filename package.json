@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "test:content-pipeline": "node --test scripts/publish-content-inbox.test.mjs",
+    "test:content-pipeline": "node --test scripts/publish-content-inbox.test.mjs src/services/blog.test.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

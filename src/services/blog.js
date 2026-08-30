@@ -1,5 +1,6 @@
 const REPO = 'songofhawk/songofhawk.github.io';
 const AUTHOR = 'songofhawk';
+const AUTOMATION_AUTHOR = 'github-actions[bot]';
 const CACHE_PREFIX = 'blog-posts-v2';
 const CACHE_TTL = 10 * 60 * 1000; // 10 minutes
 
@@ -14,6 +15,10 @@ const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const normalizeLocale = (locale) => locale === 'zh-CN' ? 'zh-CN' : 'en';
 
 const alternateLocale = (locale) => normalizeLocale(locale) === 'zh-CN' ? 'en' : 'zh-CN';
+
+export const isTrustedBlogIssue = (issue) => (
+    !issue.pull_request && [AUTHOR, AUTOMATION_AUTHOR].includes(issue.user?.login)
+);
 
 const parseBlogMeta = (source) => {
     const body = source || '';
@@ -100,8 +105,8 @@ export const fetchBlogPosts = async (locale) => {
 
     const data = await res.json();
     const posts = data
-        // The issues API also returns pull requests; only trust the repository owner.
-        .filter((item) => !item.pull_request && item.user?.login === AUTHOR)
+        // Labels require maintainer permission; accept owner posts and this repository's Actions bot.
+        .filter(isTrustedBlogIssue)
         .map((issue) => normalize(issue, normalizedLocale));
 
     writeCache(cacheKey, posts);
