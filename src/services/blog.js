@@ -20,6 +20,12 @@ export const isTrustedBlogIssue = (issue) => (
     !issue.pull_request && [AUTHOR, AUTOMATION_AUTHOR].includes(issue.user?.login)
 );
 
+export const blogIssueSearchParams = (language) => new URLSearchParams({
+    labels: `blog,lang:${language}`,
+    state: 'open',
+    per_page: '100',
+});
+
 const parseBlogMeta = (source) => {
     const body = source || '';
     const match = body.match(META_PATTERN);
@@ -89,12 +95,7 @@ export const fetchBlogPosts = async (locale) => {
     const cached = readCache(cacheKey);
     if (cached) return cached;
 
-    const params = new URLSearchParams({
-        labels: `blog,lang:${language}`,
-        creator: AUTHOR,
-        state: 'open',
-        per_page: '100',
-    });
+    const params = blogIssueSearchParams(language);
     const res = await fetch(
         `https://api.github.com/repos/${REPO}/issues?${params}`,
         { headers: { Accept: 'application/vnd.github+json' } }
