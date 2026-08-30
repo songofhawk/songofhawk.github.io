@@ -1,0 +1,26 @@
+name: Publish content inbox
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.content-inbox/**/*.json'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Idempotently publish GitHub Blog issues
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node scripts/publish-content-inbox.mjs .content-inbox
